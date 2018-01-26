@@ -62,9 +62,13 @@ lastDEQ'' (Dequeue'' inb []) = Just (last inb)
 lastDEQ'' (Dequeue'' inb out) = Just (head out)
 
 -- | function return first n elements from Dequeue'
+takeFrontDEQ'' x (Dequeue'' [] []) = []
+takeFrontDEQ'' x (Dequeue'' [] out) = takeBackDEQ'' x (Dequeue'' [] out)
 takeFrontDEQ'' x (Dequeue'' inb _) = take x inb
 
 -- | function return last n elements from Dequeue'
+takeBackDEQ'' x (Dequeue'' [] []) = []
+takeBackDEQ'' x (Dequeue'' inb []) = takeFrontDEQ'' x (Dequeue'' inb [])
 takeBackDEQ'' x (Dequeue'' _ out) = take x out
 
 -- | function add element on front of Dequeue'
